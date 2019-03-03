@@ -89,7 +89,7 @@ def main(user_sentence):
 
         # Output every 1000000 iterations
         if i % 1000000 == 0:
-            print( i, best_fit, max_score)
+            print(i, best_fit, max_score)
 
         # Get a new random sentence
         sentence = generate(n)
