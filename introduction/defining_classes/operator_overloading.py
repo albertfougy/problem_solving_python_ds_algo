@@ -2,7 +2,7 @@
 """
 Euclid’s Algorithm
 """
-def gcd(m,n):
+def greatest_common_denominator(m,n):
     while m%n != 0:
         oldm = m
         oldn = n
@@ -25,6 +25,10 @@ class Fraction:
         self.num = top
         self.den = bottom
 
+    # def show(self):
+    # This function will not work with print function, since it doesn't return a string.
+    #     print(self.num, "/",self.den)       
+
     def __str__(self):
         """
          One of these, __str__, is the method to convert an object into a string. The
@@ -37,9 +41,44 @@ class Fraction:
 
         new_num = self.num*other_fraction.den+self.den*other_fraction.num
         new_den = self.den*other_fraction.den
-        common = gcd(new_num , new_den)
+                 # invoke helper function
+        common = greatest_common_denominator(new_num , new_den)
 
         return Fraction(new_num// common, new_den  // common)
+
+    def getNum(self):
+        return self.num
+
+    def getDen(self):
+        return self.den
+
+    def __sub__(self, otherfraction):
+
+        new_num = self.num*otherfraction.den - self.den*otherfraction.num
+        new_den = self.den*otherfraction.den
+                 # invoke helper function for greatest common denominator
+        common = greatest_common_denominator(new_num , new_den)
+
+        return Fraction(new_num// common, new_den  // common)
+
+
+    def __mul__(self, otherf):
+
+        newnum = self.den * otherf.num
+        newden = self.num * otherf.den
+
+        common = greatest_common_denominator(newnum,newden)
+
+        return Fraction(newnum// common, newden  // common)
+    
+    def __truediv__(self,otherfunc):
+
+        new_numer = self.num * otherfunc.den
+        new_denom = self.den * otherfunc.num
+
+        common = greatest_common_denominator(new_numer,new_denom)
+
+        return Fraction(new_numer// common, new_denom  // common)
 
     def __eq__(self, other):
         """
@@ -53,7 +92,55 @@ class Fraction:
 
         return first_num == second_num
 
-x = Fraction(1,2)
-y = Fraction(2,3)
-print(x+y)
-print(x == y)
+    def __lt__(self, other):
+        """
+        The __lt__ method
+        compares two objects and returns the Lesser of the 2 values
+        """
+        first_num = self.num * other.den
+        second_num = other.num * self.den
+
+        return first_num < second_num
+
+    def __gt__(self, other):
+        """
+        The __gt__ method
+        compares two objects and returns the Greater of the 2 values
+        """
+        first_num = self.num * other.den
+        second_num = other.num * self.den
+
+        return first_num > second_num
+
+# One is to define a method called show that will allow the 
+# Fraction object to print itself as a string. 
+# this does not work in general. In order to make printing work properly, 
+# we need to tell the Fraction class how to convert itself into a string.
+# myf = Fraction(3,5)
+# my.show()
+
+def main():
+    f = Fraction(1,3)
+    g = Fraction(1,5)
+    h = f+g
+    print (f.getNum())
+    print (g.getDen())
+    j = Fraction(2,6)
+    print('addition: ')
+    print (h)
+    print('subtraction: ')
+    print (f - j)
+    print('multiplication: ')
+    print (f * j)
+    print('division: ')
+    print (f / j)
+    print ('greater than: ')
+    print ( g > f)
+    print('less than: ')
+    print ( g < f)
+    print ('equality: ')
+    print (g == f)
+    print (f==j)
+    print (f!=j)
+
+main()
