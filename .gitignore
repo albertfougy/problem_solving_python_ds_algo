@@ -2,3 +2,5 @@
 .DS_Store
 virtualenv/
 introduction/defining_functions/monkey.py
+__pycache__/
+.vscode/
